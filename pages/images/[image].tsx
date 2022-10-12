@@ -3,10 +3,16 @@ import { PictureProps } from "../../components/Picture";
 import { base } from '../index';
 import { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
 
 type ImagePageProps = {
     image: PictureProps,
 }
+
+interface Image extends ParsedUrlQuery {
+	image: string,
+ }
+
 
 const Image: NextPage<ImagePageProps> = ({ image }) => {
     const { isFallback } = useRouter();
@@ -27,7 +33,7 @@ const Image: NextPage<ImagePageProps> = ({ image }) => {
 }
 
 export const getStaticProps: GetStaticProps = async ctx => {
-    const { image } = ctx.params;
+    const  image  = ctx.params;
     const pic = await fetch(`${base}/photos/${image}`)
         .then(res => res.json())
         .then(res => res)
