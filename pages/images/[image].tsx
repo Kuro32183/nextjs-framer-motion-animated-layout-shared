@@ -33,7 +33,7 @@ const Image: NextPage<ImagePageProps> = ({ image }) => {
 }
 
 export const getStaticProps: GetStaticProps = async ctx => {
-    const  image  = ctx.params;
+    const { image } = ctx.params as Image
     const pic = await fetch(`${base}/photos/${image}`)
         .then(res => res.json())
         .then(res => res)
